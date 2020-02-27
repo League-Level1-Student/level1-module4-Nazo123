@@ -36,6 +36,7 @@ public class Jeopardy implements ActionListener {
 	private JButton secondButton;
 	private JButton thirdButton, fourthButton;
 	private JPanel quizPanel;
+	private JPanel header;
 	private int score = 0;
 	private JLabel scoreBox = new JLabel("0");
 	private int buttonCount = 0;
@@ -50,17 +51,18 @@ public class Jeopardy implements ActionListener {
 		frame.setLayout(new BorderLayout());
 
 		// 1. Make the frame show up
-
+frame.setVisible(true);
 		// 2. Give your frame a title
-
+frame.setTitle("Test");
 		// 3. Create a JPanel variable to hold the header using the createHeader method
-
+header = createHeader("Sports");
 		// 4. Add the header component to the quizPanel
-
+quizPanel.add(header);
 		// 5. Add the quizPanel to the frame
-
+frame.add(quizPanel);
+firstButton = createButton("200");
 		// 6. Use the createButton method to set the value of firstButton
-
+quizPanel.add(firstButton);
 		// 7. Add the firstButton to the quizPanel
 
 		// 8. Write the code to complete the createButton() method below. Check that your
@@ -68,11 +70,12 @@ public class Jeopardy implements ActionListener {
 
 		// 9. Use the secondButton variable to hold a button using the createButton
 		// method
-
+secondButton = createButton("400");
 		// 10. Add the secondButton to the quizPanel
-
+quizPanel.add(secondButton);
 		// 11. Add action listeners to the buttons (2 lines of code)
-
+firstButton.addActionListener(this);
+secondButton.addActionListener(this);
 		// 12. Write the code to complete the actionPerformed() method below
 
 		// 13. Add buttons so that you have $200, $400, $600, $800 and $1000 questions
@@ -93,26 +96,27 @@ public class Jeopardy implements ActionListener {
 	private JButton createButton(String dollarAmount) {
 		
 		// Create a new JButton
-
+JButton buttonb = new JButton();
 		// Set the text of the button to the dollarAmount
-
+buttonb.setText(dollarAmount);;
 		// Increment the buttonCount (this should make the layout vertical)
-
+buttonCount++;
 		// Return your new button instead of the temporary button
 
-		return new JButton("temporary button");
+		return  buttonb;
 	}
 
 	public void actionPerformed(ActionEvent e) {
 		
-		// Remove this temporary message after testing:
+		// Remove this temporary message after testing: Continue HereContinue HereContinue HereContinue HereContinue HereContinue HereContinue Here
 		JOptionPane.showMessageDialog(null, "pressed " + ((JButton) e.getSource()).getText() + " button");
 
 		JButton buttonPressed = (JButton) e.getSource();
 		// If the buttonPressed was the firstButton
-
+if(buttonPressed.equals(firstButton)) {
 			// Call the askQuestion() method
- 
+	askQuestion("Is Lebron James a basketball player, True or False", "true", 200);
+}
 		// Complete the code in the askQuestion() method. When you play the game, the score should change.
 
 		// If the buttonPressed was the secondButton
@@ -126,14 +130,23 @@ public class Jeopardy implements ActionListener {
 	private void askQuestion(String question, String correctAnswer, int prizeMoney) {
 		
 		// Use the playJeopardyTheme() method to play music while the use thinks of an answer
-		
+		playJeopardyTheme();
 		// Remove this temporary message and replace it with a pop-up that asks the user the question
-		JOptionPane.showMessageDialog(null, "this is where the question will be asked");
+		String answer = JOptionPane.showInputDialog(question);
 		
 		// Stop the theme music when they have entered their response. Hint: use the sound variable 
-		
+	sound.stop();
 		// If the answer is correct
-
+if (answer.equalsIgnoreCase(correctAnswer)) {
+	score = score + prizeMoney;
+	JOptionPane.showMessageDialog(null, "You are correct!");
+}
+else {
+score=score-prizeMoney;
+JOptionPane.showMessageDialog(null, "You incorrect, the correct answer was true.");
+}
+updateScore();
+}
 			// Increase the score by the prizeMoney
 
 			// Pop up a message to tell the user they were correct
@@ -160,7 +173,7 @@ public class Jeopardy implements ActionListener {
 
 	private Component makeScorePanel() {
 		JPanel panel = new JPanel();
-		panel.add(new JLabel("score:"));
+		panel.add(new JLabel("Score:"));
 		panel.add(scoreBox);
 		panel.setBackground(Color.CYAN);
 		return panel;
