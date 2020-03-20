@@ -7,9 +7,12 @@ public class whackAMoleRunner {
 	
 	public static void main(String[] args) {
 		 Random r = new Random();
+		 int random;
 		 whackAMole e = new whackAMole();
-		int random = r.nextInt(23);
+		random = r.nextInt(23);
 		e.drawButtons(random);
+
+		
 		
 		
 	}
